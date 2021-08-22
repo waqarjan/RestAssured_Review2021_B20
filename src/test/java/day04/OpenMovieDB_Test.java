@@ -25,5 +25,11 @@ public class OpenMovieDB_Test {
         setUp();
     }
 
+    @DisplayName("Test Search Movie or OpenMovieDB Test")
+    @Test
+    public void testMovie() {
+
+
+    }
 
 }
