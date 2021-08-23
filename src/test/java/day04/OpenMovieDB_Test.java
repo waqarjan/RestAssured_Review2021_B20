@@ -33,7 +33,7 @@ public class OpenMovieDB_Test {
             .queryParam("apikey", "af37c803")
             .queryParam("t", "The Orville").
         when()
-                .get(baseURI).
+                .get(baseURI). prettyPeek().
         then()
                 .statusCode(is(200))
                 .contentType(ContentType.JSON)
