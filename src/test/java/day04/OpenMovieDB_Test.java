@@ -29,6 +29,19 @@ public class OpenMovieDB_Test {
     @Test
     public void testMovie() {
 
+        given()
+            .queryParam("apikey", "af37c803")
+            .queryParam("t", "The Orville").
+        when()
+                .get(baseURI).
+        then()
+                .statusCode(is(200))
+                .contentType(ContentType.JSON)
+                .body("Title", is("The Orville"))
+                .body("Ratings[0].Source", is("Internet Movie Database"))
+
+
+                ;
 
     }
 
