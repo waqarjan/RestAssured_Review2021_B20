@@ -54,7 +54,8 @@ public class OpenMovieDB_Test {
             when()
                     .get(baseURI).
             then()
-                    .log().all()
+                    //.log().all()
+                    .log().ifValidationFails()
                     //logging the response should be in then section
                     .statusCode(is(200))
                     .contentType(ContentType.JSON)
