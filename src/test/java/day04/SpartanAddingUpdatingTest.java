@@ -59,7 +59,12 @@ public class SpartanAddingUpdatingTest {
                 .post("/spartans").
         then()
                 .log().all()
+                .assertThat()
                 .statusCode(is(201))
+                .contentType(ContentType.JSON)
+                .body("success", is("A Spartan is Born!"))
+                .body("data.name",is("Assyle Khan"))
+                .body("data.gender",is("Male"))
         ;
     }
 }
