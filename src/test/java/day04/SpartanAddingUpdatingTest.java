@@ -25,6 +25,19 @@ public class SpartanAddingUpdatingTest {
         setUp();
     }
 
+    @DisplayName("Testing GET /api/spartans with Basic auth ")
+    @Test
+    public void testAllSpartanWithBasicAuth(){
+        given()
+                .log().all()
+                .auth().basic("admin","admin").
+        when()
+                .get("/spartans")
+        .then()
+                .log().all()
+                .statusCode(200);
+    }
+
 
 
 
