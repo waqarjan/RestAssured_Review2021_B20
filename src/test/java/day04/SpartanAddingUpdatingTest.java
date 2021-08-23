@@ -27,10 +27,10 @@ public class SpartanAddingUpdatingTest {
 
     @DisplayName("Testing GET /api/spartans with Basic auth ")
     @Test
-    public void testAllSpartanWithBasicAuth(){
+    public void testAllSpartanWithBasicAuth() {
         given()
                 .log().all()
-                .auth().basic("admin","admin").
+                .auth().basic("admin", "admin").
         when()
                 .get("/spartans")
         .then()
@@ -39,7 +39,27 @@ public class SpartanAddingUpdatingTest {
     }
 
 
+    @DisplayName("Add 1 Data with Raw Json String POST/api/spartans")
+    @Test
+    public void testAddOneData() {
 
+        String newSpartanStr = "   {\n" +
+                "        \"name\": \"Assyle Khan\",\n" +
+                "        \"gender\": \"Male\",\n" +
+                "        \"phone\": 1231031231\n" +
+                "    }";
+        System.out.println("newSpartanStr = " + newSpartanStr);
 
-
+        given()
+                .log().all()
+                .auth().basic("admin", "admin")
+                .contentType(ContentType.JSON)      //tell the server what we are sending
+                .body(newSpartanStr).
+        when()
+                .post("/spartans").
+        then()
+                .log().all()
+                .statusCode(is(201))
+        ;
+    }
 }
