@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
 
-public class SpartanAddingUpdatingTest {
+public class SpartanAddingTest {
 
     @BeforeAll
     public static void setUp() {
@@ -27,6 +27,9 @@ public class SpartanAddingUpdatingTest {
     public static void tearDown() {
         setUp();
     }
+
+
+
 
     @DisplayName("Testing GET /api/spartans with Basic auth ")
     @Test
@@ -40,6 +43,8 @@ public class SpartanAddingUpdatingTest {
                 .log().all()
                 .statusCode(200);
     }
+
+
 
 
     @DisplayName("Add 1 Data with Raw Json String POST/api/spartans")
@@ -71,35 +76,41 @@ public class SpartanAddingUpdatingTest {
         ;
         }
 
-        @DisplayName("Add 1 Data with Map Object POST /api/spartans")
-        @Test
-        public void testAddOneDataWithMapAsBody() {
 
-            Map<String, Object> payloadMap = new LinkedHashMap<>();
-                payloadMap.put("name" ,   "Tucky");
-                payloadMap.put("gender" , "Male");
-                payloadMap.put("phone" ,  9876543210L);
 
-            System.out.println("payloadMap = " + payloadMap);
 
-            given()
-                    .log().all()
-                    .auth().basic("admin", "admin")
-                    .contentType(ContentType.JSON)
-                    .body(payloadMap).
-            when()
-                    .post("/spartans").
-            then()
-                    .log().all()
-                    .assertThat()
-                    .statusCode(is(201))
-                    .contentType(ContentType.JSON)
-                    .body("success", is("A Spartan is Born!"))
-                    .body("data.name", is("Tucky"))
-                    .body("data.gender", is("Male"))
-                    .body("data.phone", is(9876543210L))
-            ;
-        }
+    @DisplayName("Add 1 Data with Map Object POST /api/spartans")
+    @Test
+    public void testAddOneDataWithMapAsBody() {
+
+        Map<String, Object> payloadMap = new LinkedHashMap<>();
+            payloadMap.put("name" ,   "Tucky");
+            payloadMap.put("gender" , "Male");
+            payloadMap.put("phone" ,  9876543210L);
+
+        System.out.println("payloadMap = " + payloadMap);
+
+        given()
+                .log().all()
+                .auth().basic("admin", "admin")
+                .contentType(ContentType.JSON)
+                .body(payloadMap).
+        when()
+                .post("/spartans").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(is(201))
+                .contentType(ContentType.JSON)
+                .body("success", is("A Spartan is Born!"))
+                .body("data.name", is("Tucky"))
+                .body("data.gender", is("Male"))
+                .body("data.phone", is(9876543210L))
+        ;
+    }
+
+
+
 
     @DisplayName("Add 1 Data with Map Object POST /api/spartans")
     @Test
