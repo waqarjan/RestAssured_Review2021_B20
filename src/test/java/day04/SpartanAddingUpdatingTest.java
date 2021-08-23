@@ -8,6 +8,7 @@ import static io.restassured.RestAssured.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,39 @@ public class SpartanAddingUpdatingTest {
                     .body("data.gender", is("Male"))
                     .body("data.phone", is(9876543210L))
             ;
-
         }
+
+    @DisplayName("Add 1 Data with Map Object POST /api/spartans")
+    @Test
+    public void testAddOneDataWithJSONFileAsBody(){
+    //create a file called single spartan.json right under root directory with below content
+        /*
+            {
+            "name": "Olivia",
+            "gender": "Female",
+            "phone": 9877543210L
+            }
+            add below code to point File object to this singleSpartan.json
+         */
+
+        File externalJson = new File("singleSpartan.json");
+
+        given()
+                .log().all()
+                .auth().basic("admin", "admin")
+                .contentType(ContentType.JSON)
+            .body(externalJson).
+        when()
+                .post("/spartans").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(is(201))
+                .contentType(ContentType.JSON)
+                .body("success", is("A Spartan is Born!"))
+                .body("data.name", is("Olivia"))
+                .body("data.gender", is("Female"))
+                .body("data.phone", is(9877543210L));
+    }
+
 }
