@@ -29,12 +29,29 @@ public class SpartanUpdatingTest {
 
     @DisplayName("Testing PUT /api/spartans{ID}")
     @Test
-    public void testUpdatingSingleSpartan() {
+    public void testUpdatingSingleSpartanWithStringBody() {
 
+        String updateStrPayload = "    {\n" +
+                "        \"name\": \"B20 Vola\",\n" +
+                "        \"gender\": \"Male\",\n" +
+                "        \"phone\": 9876543210\n" +
+                "    }";
+
+        given()
+                .log().all()
+                .auth().basic("admin", "admin")
+                .contentType(ContentType.JSON)
+                .pathParam("id", 1)
+                .body(updateStrPayload).
+        when()
+                .put("/spartans/{id}").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(204)
+                .header("Date", is(notNullValue()))
+                .body(emptyString())
+        ;
     }
-
-
-
-
 
 }
