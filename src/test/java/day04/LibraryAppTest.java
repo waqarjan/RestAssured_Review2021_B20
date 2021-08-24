@@ -18,7 +18,11 @@ public class LibraryAppTest {
         reset();
     }
 
+    @DisplayName("Testing POST /login Endpoint")
+    @Test
+    public void testLogin() {
 
+    }
 }
 
 
