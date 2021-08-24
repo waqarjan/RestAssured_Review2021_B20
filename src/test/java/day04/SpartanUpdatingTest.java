@@ -82,8 +82,14 @@ public class SpartanUpdatingTest {
     }
 
 
+    @DisplayName("Testing Delete /api/spartans/{id}")
+    @Test
+    public void testDeletingSingleSpartan() {
 
-
-
-
+    }
 }
+
+
+
+
+
