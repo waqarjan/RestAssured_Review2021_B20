@@ -43,9 +43,5 @@ public class RestAssuredIntro {
         //Easy way to work with Content-type without typing much
         assertThat(response.contentType(),startsWith(ContentType.TEXT.toString()));
         //assertThat(response.contentType(),is(not(ContentType.JSON)));
-
-
-
     }
-
 }

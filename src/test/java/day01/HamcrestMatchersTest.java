@@ -56,9 +56,5 @@ public class HamcrestMatchersTest {
 
         //assert the str ends with "so far"
         assertThat(str, endsWithIgnoringCase("so far"));
-
-
     }
-
-
 }
