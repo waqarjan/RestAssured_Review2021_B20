@@ -9,7 +9,7 @@ public class LibraryAppTest {
 
     @BeforeAll
     public static void setUp() {
-        baseURI = "https://www.library1.cybertekschool.com";
+        baseURI = "http://library1.cybertekschool.com";
         basePath = "/rest/v1";
     }
 
@@ -22,6 +22,25 @@ public class LibraryAppTest {
     @Test
     public void testLogin() {
 
+        String myToken=
+        given()
+                .log().all()
+                .contentType(ContentType.URLENC)
+                .formParam("email", "librarian69@library")
+                .formParam("password", "KNPXrm3S").
+        when()
+                .post("/login").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(is(200))
+                .contentType(ContentType.JSON)
+                .body("token",is(not(emptyString())))
+             .extract()
+                .jsonPath()
+                .getString("token")
+                ;
+        System.out.println("myToken = " + myToken);
     }
 }
 
