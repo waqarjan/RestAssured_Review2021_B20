@@ -86,6 +86,17 @@ public class SpartanUpdatingTest {
     @Test
     public void testDeletingSingleSpartan() {
 
+        given()
+                .log().all()
+                .auth().basic("admin", "admin")
+                .pathParam("id", 10).
+        when()
+                .delete("/spartans/{id}").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(is(204))
+                .body(emptyString());
     }
 }
 
