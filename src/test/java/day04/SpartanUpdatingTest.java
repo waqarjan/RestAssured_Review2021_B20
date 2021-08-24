@@ -54,4 +54,17 @@ public class SpartanUpdatingTest {
         ;
     }
 
+    @DisplayName("Testing PATCH /api/spartans/{id} with String body")
+    @Test
+    public void testPartialUpdatingSingleSpartanWithStringBody() {
+
+
+
+    }
+
+
+
+
+
+
 }
