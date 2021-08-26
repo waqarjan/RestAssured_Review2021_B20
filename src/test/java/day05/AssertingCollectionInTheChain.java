@@ -29,9 +29,12 @@ public class AssertingCollectionInTheChain {
     @Test
     public void testSearchAndExtractData() {
 
-        //STEPS WE WANT TO PERFORM
         // search for nameContains : a , gender Female
         // verify status code is 200
+        // check the size of result is Some hardcoded number
+        // verify all names from the result contains 'a'
+        // verify all gender is Female only
+        // do it in the chain
 
                 given()
                         .log().all()
@@ -44,8 +47,10 @@ public class AssertingCollectionInTheChain {
                         .log().all()
                         .assertThat()
                         .statusCode(is(200))
-                        .contentType(ContentType.JSON)
+                        .body("totalElement", equalTo(41))
+                        .body("content", hasSize(41))
+                        .body("content.name", everyItem(containsStringIgnoringCase("a")))
+                        .body("content.gender", everyItem(is("Female")))
                         ;
-
     }
 }
