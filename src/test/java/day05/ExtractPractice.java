@@ -1,8 +1,11 @@
 package day05;
 
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.*;
-import java.util.List;
+
+import java.util.*;
+
 import static io.restassured.RestAssured.* ;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.* ;
@@ -38,7 +41,33 @@ public class ExtractPractice {
         // and get the numberOfElements field value
         // compare those 2
 
+        JsonPath jp =
+                given()
+                        .log().all()
+                        .contentType(ContentType.JSON)
+                        .queryParam("nameContains", "a")
+                        .queryParam("gender", "Female").
+                when()
+                        .get("/spartans/search").
+                then()
+                        .log().all()
+                        .assertThat()
+                        .statusCode(is(200))
+                        .contentType(ContentType.JSON)
+                        .extract()
+                        .jsonPath();
 
+
+      List<String> listOfNames = jp.getList("content.name");
+
+      int numOfElements = jp.getInt("totalElement");
+      System.out.println("numOfElements = " + numOfElements);
+
+       assertThat(listOfNames.size(), equalTo(numOfElements));
+
+      assertThat(listOfNames, hasSize(numOfElements));
     }
+
+
 
 }

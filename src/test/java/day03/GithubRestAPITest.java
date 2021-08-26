@@ -56,24 +56,18 @@ public class GithubRestAPITest {
 
     @DisplayName("Test GitHub GET /users/{username}")
     @Test
-    public void testGitHub(){
-   given()
-                .pathParam("username","CybertekSchool").
-        when()
+    public void testGitHub() {
+        given()
+                .pathParam("username", "CybertekSchool").
+                when()
                 .get("https://api.github.com/users/{username}").
-        then()
+                then()
                 .assertThat()
                 .statusCode(is(200))
                 .contentType(ContentType.JSON)
-                .header("Server","GitHub.com")
-           .body("login", is("CybertekSchool"))
-           .body("id",is(33201481))
+                .header("Server", "GitHub.com")
+                .body("login", is("CybertekSchool"))
+                .body("id", is(33201481))
         ;
     }
-    
-    
-    
-    
-    
-    
 }
