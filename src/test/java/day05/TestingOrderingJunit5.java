@@ -9,9 +9,8 @@ import static org.junit.jupiter.api.MethodOrderer.* ;
 // these are all available option for ordering your tests
 // @TestMethodOrder(OrderAnnotation.class)
 // @TestMethodOrder(Random.class)
-// @TestMethodOrder(MethodName.class) // default options
-
-@TestMethodOrder(MethodOrderer.DisplayName.class)
+// @TestMethodOrder(MethodName.class)       // default options
+   @TestMethodOrder(OrderAnnotation.class)
 public class TestingOrderingJunit5 {
 
     @Order(3)
