@@ -1,4 +1,5 @@
 package day05;
+
 import Utility.ConfigurationReader;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -11,8 +12,8 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-
 public class AssertingCollectionInTheChain {
+
 
     @BeforeAll
     public static void setUp() {
@@ -20,9 +21,10 @@ public class AssertingCollectionInTheChain {
         basePath = "/api";
     }
 
+
     @AfterAll
     public static void tearDown() {
-        setUp();
+        reset();
     }
 
 
@@ -36,7 +38,6 @@ public class AssertingCollectionInTheChain {
         // verify all names from the result contains 'a'
         // verify all gender is Female only
         // do it in the chain
-
                 given()
                         .log().all()
                         .contentType(ContentType.JSON)
