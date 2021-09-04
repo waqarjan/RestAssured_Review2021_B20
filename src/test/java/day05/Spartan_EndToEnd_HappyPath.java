@@ -47,28 +47,28 @@ public class Spartan_EndToEnd_HappyPath {
     @Test
     public void testAddData() {
         newID =
-                given()
-                        .auth().basic("admin","admin")
-                        .contentType(ContentType.JSON)
-                        .body(  payloadMap  )
-                        .log().all().
-                when()
-                        .post("/spartans").
-                then()
-                        .log().all()
-                        .assertThat()
-                        .statusCode(201)
-                        .contentType(ContentType.JSON)
-                        // assert the response body name , gender , phone
-                        // is same as what faker generated
-                        .body("data.name" , is( payloadMap.get("name") )  )
-                        .body("data.gender" , is( payloadMap.get("gender") )  )
-                        .body("data.phone" , equalTo( payloadMap.get("phone") )  )
-                     .extract()
-                        .jsonPath()
-                        .getInt("data.id")
+        given()
+                .auth().basic("admin","admin")
+                .contentType(ContentType.JSON)
+                .body(  payloadMap  )
+                .log().all().
+        when()
+                .post("/spartans").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(201)
+                .contentType(ContentType.JSON)
+                // assert the response body name , gender , phone
+                // is same as what faker generated
+                .body("data.name" , is( payloadMap.get("name") )  )
+                .body("data.gender" , is( payloadMap.get("gender") )  )
+                .body("data.phone" , equalTo( payloadMap.get("phone") )  )
+             .extract()
+                .jsonPath()
+                .getInt("data.id")
         ;
-        System.out.println("newID = " + newID);
+            System.out.println("newID = " + newID);
 
     }
 
@@ -80,11 +80,11 @@ public class Spartan_EndToEnd_HappyPath {
                 .auth().basic("admin","admin")
                 .pathParam("id" , newID)
                 .log().all().
-                when()
+        when()
                 .get("/spartans/{id}").
                 then()
                 .log().all()
-                .assertThat()
+            .assertThat()
                 .statusCode( is (200) )
                 .contentType(ContentType.JSON)
                 .body("id" , is(newID) )
@@ -95,5 +95,61 @@ public class Spartan_EndToEnd_HappyPath {
     }
 
 
+    @DisplayName("3. Testing PUT /api/spartans/{id} Endpoint")
+    @Test
+    public void testUpdate1SpartanData() {
 
+        payloadMap = SpartanUtil.getRandomSpartanRequestPayload();
+
+        given()
+                .auth().basic("admin","admin")
+                .pathParam("id",newID)
+                .contentType(ContentType.JSON)
+                .body(payloadMap)
+                .log().all().
+        when()
+                .put("/spartans/{id}").
+        then()
+                .log().all()
+            .assertThat()
+                .statusCode(204)
+                .body(emptyString())
+        ;
+
+
+        given()
+                .auth().basic("admin","admin")
+                .pathParam("id" , newID)
+                .log().all().
+        when()
+                .get("/spartans/{id}").
+        then()
+                .log().all()
+                .body("gender" , is( payloadMap.get("gender") ) )
+             .assertThat()
+                .statusCode( is (200) )
+                .contentType(ContentType.JSON)
+                .body("id" , is(newID) )
+                .body("name" , is( payloadMap.get("name")  ) )
+                .body("phone" , is( payloadMap.get("phone") ) )
+        ;
+    }
+
+    @DisplayName("4. Testing DELETE /api/spartans/{id} Endpoint")
+    @Test
+    public void testDelete1SpartanData() {
+
+        given()
+                .auth().basic("admin","admin")
+                .pathParam("id",newID)
+                .log().all().
+        when()
+                .delete("/spartans/{id}").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(204)
+                .body(emptyString())
+        ;
+    }
 }
