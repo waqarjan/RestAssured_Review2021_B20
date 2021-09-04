@@ -44,4 +44,5 @@ public class HelloTest {
         System.out.println("test 2 is running");
         assertEquals(12, 3*4);
     }
+
 }
