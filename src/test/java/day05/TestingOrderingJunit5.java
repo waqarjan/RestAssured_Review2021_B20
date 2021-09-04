@@ -43,6 +43,7 @@ public class TestingOrderingJunit5 {
     public void testB(){
         System.out.println("running test B");
     }
+
 }
 
 
