@@ -88,4 +88,5 @@ public class SpartanTest {
         then()
                 .assertThat().statusCode(is(200)).and().contentType(ContentType.XML);
     }
+
 }
