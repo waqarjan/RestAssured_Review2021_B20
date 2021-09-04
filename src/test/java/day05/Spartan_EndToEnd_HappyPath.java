@@ -72,4 +72,28 @@ public class Spartan_EndToEnd_HappyPath {
 
     }
 
+    @DisplayName("2. Testing GET /api/spartans/{id} Endpoint")
+    @Test
+    public void testGet1SpartanData() {
+
+        given()
+                .auth().basic("admin","admin")
+                .pathParam("id" , newID)
+                .log().all().
+                when()
+                .get("/spartans/{id}").
+                then()
+                .log().all()
+                .assertThat()
+                .statusCode( is (200) )
+                .contentType(ContentType.JSON)
+                .body("id" , is(newID) )
+                .body("name" , is( payloadMap.get("name")  ) )
+                .body("gender" , is( payloadMap.get("gender") ) )
+                .body("phone" , is( payloadMap.get("phone") ) )
+        ;
     }
+
+
+
+}
