@@ -109,4 +109,5 @@ public class JsonPathIntro {
         System.out.println("names are "+ jp.getList(" content.name"));
         System.out.println("phone no's are "+ jp.getList(" content.phone"));
     }
+
 }
