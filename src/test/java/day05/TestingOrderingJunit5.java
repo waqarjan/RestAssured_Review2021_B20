@@ -20,6 +20,7 @@ public class TestingOrderingJunit5 {
         System.out.println("running test A");
     }
 
+
     @Order(1)
     @DisplayName("1. Test C method")
     @Test
@@ -27,12 +28,14 @@ public class TestingOrderingJunit5 {
         System.out.println("running test C");
     }
 
+
     @Order(4)
     @DisplayName("4. Test D method")
     @Test
     public void testD(){
         System.out.println("running test D");
     }
+
 
     @Order(2)
     @DisplayName("2. Test B method")

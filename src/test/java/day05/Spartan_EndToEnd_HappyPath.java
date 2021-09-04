@@ -1,0 +1,75 @@
+package day05;
+
+import io.restassured.http.ContentType;
+import Utility.ConfigurationReader;
+import org.junit.jupiter.api.*;
+
+import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
+
+import org.junit.jupiter.api.DisplayName;
+import Utility.SpartanUtil;
+
+import java.util.Map;
+
+
+@TestMethodOrder(MethodOrderer.DisplayName.class)
+public class Spartan_EndToEnd_HappyPath {
+
+    private static Map<String, Object> payloadMap;
+    private static int newID;
+
+
+    @BeforeAll
+    public static void setUp() {
+        baseURI = ConfigurationReader.getProperty("spartan.base_url");
+        basePath = "/api";
+        payloadMap = SpartanUtil.getRandomSpartanRequestPayload();
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        reset();
+    }
+
+
+    /*
+    STEPS:
+        1-Create a top-level variable so each and every class can access.
+            private static Map<String,Object> payloadMap ;
+        2-Set the value of the payloadMap using the SpartanUtil.
+            payloadMap =  spartanUtil.getRandomSpartanRequestPayload() ;
+        3-Validate
+     */
+
+
+    @DisplayName("1. Testing POST /api/spartans Endpoint")
+    @Test
+    public void testAddData() {
+        newID =
+                given()
+                        .auth().basic("admin","admin")
+                        .contentType(ContentType.JSON)
+                        .body(  payloadMap  )
+                        .log().all().
+                when()
+                        .post("/spartans").
+                then()
+                        .log().all()
+                        .assertThat()
+                        .statusCode(201)
+                        .contentType(ContentType.JSON)
+                        // assert the response body name , gender , phone
+                        // is same as what faker generated
+                        .body("data.name" , is( payloadMap.get("name") )  )
+                        .body("data.gender" , is( payloadMap.get("gender") )  )
+                        .body("data.phone" , equalTo( payloadMap.get("phone") )  )
+                     .extract()
+                        .jsonPath()
+                        .getInt("data.id")
+        ;
+        System.out.println("newID = " + newID);
+
+    }
+
+    }

@@ -7,16 +7,20 @@ import java.util.Map;
 
 public class SpartanUtil {
 
-    public static Map<String, Object> getRadomSpartanRequestPayload() {
+    public static Map<String, Object> getRandomSpartanRequestPayload() {
 
         Faker faker = new Faker();
 
-        Map<String, Object> payLoadMap = new LinkedHashMap<>();
+        Map<String, Object> payloadMap = new LinkedHashMap<>();
 
-        payLoadMap.put("name", faker.name().firstName());
-        payLoadMap.put("gender", faker.demographic().sex());
-        payLoadMap.put("phone", faker.number().numberBetween(5000000000L, 9999999999L));
+        payloadMap.put("name", faker.name().firstName());
+        payloadMap.put("gender", faker.demographic().sex());
+        payloadMap.put("phone", faker.number().numberBetween(5000000000L, 9999999999L));
 
-        return payLoadMap;
+        return payloadMap ;
     }
+
+//    public static void main(String[] args) {
+//        System.out.println("getRandomSpartanRequestPayload() = " + getRandomSpartanRequestPayload());
+//    }
 }
