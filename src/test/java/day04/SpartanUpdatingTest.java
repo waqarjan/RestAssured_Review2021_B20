@@ -106,6 +106,7 @@ public class SpartanUpdatingTest {
                 .statusCode(is(204))
                 .body(emptyString());
     }
+
 }
 
 
