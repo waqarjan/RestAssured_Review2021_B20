@@ -1,16 +1,10 @@
 package day06;
 
 import Utility.ConfigurationReader;
-import Utility.SpartanUtil;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.*;
-
 import static io.restassured.RestAssured.*;
-
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import pojo.Spartan;
-
 import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
