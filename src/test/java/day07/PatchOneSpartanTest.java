@@ -79,5 +79,6 @@ public class PatchOneSpartanTest {
                 .log().all()
                 .statusCode(204)
         ;
+
     }
 }
