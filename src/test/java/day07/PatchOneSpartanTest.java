@@ -61,7 +61,7 @@ public class PatchOneSpartanTest {
 
         Spartan sp = new Spartan(); //"Nagina", "", 3213213213L);
         sp.setName("Nagi");
-        sp.setPhone(3334445551l);
+        sp.setPhone(3334445551L);
 
         // MAP IS A BETTER OPTION WITH MINIMAL EFFORT
         // POJO class need some handling to ignore empty field values
