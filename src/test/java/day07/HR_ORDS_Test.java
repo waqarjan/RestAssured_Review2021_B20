@@ -49,12 +49,13 @@ public class HR_ORDS_Test {
                                 .pathParam("region_id", 3)
                                 .log().all().
                             when()
-                                .get("/regions/{region_id}");
+                                .get("/regions/{region_id}").prettyPeek()
+                            ;
 
     JsonPath jp = response.jsonPath();
 
     Region r3 = jp.getObject("", Region.class);
-
+        System.out.println("r3 = " + r3);
 
     }
 
