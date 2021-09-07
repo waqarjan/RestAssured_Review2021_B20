@@ -9,6 +9,7 @@ import java.util.List;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+//
 public class HR_ORDS_Test {
 
     @BeforeAll
@@ -40,6 +41,22 @@ public class HR_ORDS_Test {
                 ;
     }
 
+    @DisplayName("Save GET /regions/{region_id} response as POJO")
+    @Test
+    public void testSingleRegionToPOJO(){
+
+    Response response=      given()
+                                .pathParam("region_id", 3)
+                                .log().all().
+                            when()
+                                .get("/regions/{region_id}");
+
+    JsonPath jp = response.jsonPath();
+
+    Region r3 = jp.getObject("", Region.class);
+
+
+    }
 
 
 
