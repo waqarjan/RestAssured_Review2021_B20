@@ -23,6 +23,7 @@ public class HR_ORDS_Test {
         reset();
     }
 
+
     @DisplayName("Testing /regions/region_id")
     @Test
     public void testThirdRegionIsAsia(){
@@ -41,6 +42,7 @@ public class HR_ORDS_Test {
                 ;
     }
 
+
     @DisplayName("Save GET /regions/{region_id} response as POJO")
     @Test
     public void testSingleRegionToPOJO(){
@@ -49,7 +51,8 @@ public class HR_ORDS_Test {
                                 .pathParam("region_id", 3)
                                 .log().all().
                             when()
-                                .get("/regions/{region_id}").prettyPeek()
+                                .get("/regions/{region_id}")
+                                .prettyPeek()
                             ;
 
     JsonPath jp = response.jsonPath();
@@ -57,6 +60,21 @@ public class HR_ORDS_Test {
     Region r3 = jp.getObject("", Region.class);
         System.out.println("r3 = " + r3);
 
+   Region r4 = response.as(Region.class);
+        System.out.println("r4 = " + r4);
+
+    }
+
+
+    @DisplayName("Save GET /regions response as List of POJO")
+    @Test
+    public void testAllRegionsToListOfPOJO() {
+
+        Response response = get("/regions").prettyPeek();
+        JsonPath jp = response.jsonPath() ;
+
+        List<Region> allRegions = jp.getList("items", Region.class) ;
+        allRegions.forEach(System.out::println);
     }
 
 
