@@ -8,27 +8,16 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import pojo.Region;
+import testbase.HR_ORDS_TestBase;
 
 import java.util.List;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class HR_ORDS_Test {
+public class HR_ORDS_Test extends HR_ORDS_TestBase {
 
     //http://35.170.61.191:1000/ords/hr/countries/AR
-
-    @BeforeAll
-    public static void setUp() {
-        baseURI = "http://35.170.61.191:1000";
-        basePath = "/ords/hr";
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        reset();
-    }
-
 
     @DisplayName("Test GET /countries/{country_id} to POJO")
     @Test
@@ -46,5 +35,11 @@ public class HR_ORDS_Test {
         System.out.println("Argentina with jsonPath = " + ar1);
     }
 
-
+    @DisplayName("Test GET /countries to List of POJO")
+    @Test
+    public void testAllCountriesResponseToListOfPOJO(){
+        Response response = get("/countries").prettyPeek() ;
+        List<Country> countryList = response.jsonPath().getList("items", Country.class) ;
+        countryList.forEach(System.out::println);
+    }
 }

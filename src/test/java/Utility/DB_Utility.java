@@ -8,15 +8,15 @@ import java.util.*;
 public class DB_Utility {
 
 
-    static Connection conn; // make it static field so we can reuse in every methods we write
+    static Connection conn; // make it static field, so we can reuse in every method we write
     static Statement stmnt;
     static ResultSet rs;
 
 
     public static void createConnection() {
-        String connectionStr = ConfigurationReader.getProperty("database.url");
-        String username = ConfigurationReader.getProperty("database.username");
-        String password = ConfigurationReader.getProperty("database.password");
+        String connectionStr = ConfigurationReader.getProperty("hr.database.url");
+        String username = ConfigurationReader.getProperty("hr.database.username");
+        String password = ConfigurationReader.getProperty("hr.database.password");
 
         try {
             conn = DriverManager.getConnection(connectionStr, username, password);
@@ -42,8 +42,7 @@ public class DB_Utility {
     }
 
 
-    // Create a method called runQuery that accept a SQL Query
-    // and return ResultSet Object
+    // Create a method called runQuery that accept a SQL Query and return ResultSet Object
     public static ResultSet runQuery(String query) {
         // ResultSet rs  = null;
         // reusing the connection built from previous method
@@ -58,7 +57,7 @@ public class DB_Utility {
     }
 
 
-    // create a method to clean up all the connection statemnet and resultset
+    // create a method to clean up all the connection statement and resultset
     public static void destroy() {
         try {
             if (rs != null) rs.close();
@@ -70,9 +69,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * Count how many row we have
-     * @return the row count of the resultset we got
+    //Count how many row we have
+     /* @return the row count of the resultset we got
      */
     public static int getRowCount() {
 
@@ -91,9 +89,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * Get the column count
-     * @return count of column the result set have
+    // Get the column count
+     /* @return count of column the result set have
      */
     public static int getColumnCount() {
 
@@ -110,9 +107,7 @@ public class DB_Utility {
     }
 
 
-    /**
-     * a method that return all column names as List<String>
-     */
+    // a method that return all column names as List<String>
     public static List<String> getColumnNames() {
 
         List<String> columnList = new ArrayList<>();
@@ -122,7 +117,6 @@ public class DB_Utility {
                 String columnName = rsmd.getColumnLabel(colNum);
                 columnList.add(columnName);
             }
-
         } catch (SQLException e) {
             System.out.println("ERROR WHILE GETTING ALL COLUMN NAMES " + e.getMessage());
         }
@@ -130,9 +124,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * Create a method that return all row data as a List<String>
-     * @param rowNum Row number you want to get the data
+    // Create a method that return all row data as a List<String>
+     /* @param rowNum Row number you want to get the data
      * @return the row data as List object
      */
     public static List<String> getRowDataAsList(int rowNum) {
@@ -154,9 +147,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * Create a method to return the cell value at certain row certain column
-     * @param rowNum row number
+    // Create a method to return the cell value at certain row certain column
+     /* @param rowNum row number
      * @param colNum column number
      * @return Cell value as String
      */
@@ -175,9 +167,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * Create a method to return the cell value at certain row certain column
-     * @param rowNum  row number
+    // Create a method to return the cell value at certain row certain column
+     /* @param rowNum  row number
      * @param colName column name
      * @return Cell value as String at specified row numeber and column number
      */
@@ -197,9 +188,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * return value of all cells in that column
-     * @param colNum the column number you want to get the list out of
+    // return value of all cells in that column
+     /* @param colNum the column number you want to get the list out of
      * @return value of all cells in that column as a List<String>
      */
     public static List<String> getColumnDataAsList(int colNum) {
@@ -220,9 +210,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * return value of all cells in that column using column name
-     * @param colName the column name you want to get the list out of
+    // return value of all cells in that column using column name
+     /* @param colName the column name you want to get the list out of
      * @return value of all cells in that column as a List<String>
      */
     public static List<String> getColumnDataAsList(String colName) {
@@ -230,7 +219,6 @@ public class DB_Utility {
         List<String> cellValuesList = new ArrayList<>();
 
         try {
-
             while (rs.next()) {
                 String cellValue = rs.getString(colName);
                 cellValuesList.add(cellValue);
@@ -244,9 +232,7 @@ public class DB_Utility {
     }
 
 
-    /**
-     * A method that display all the result set data on console
-     */
+    // A method that display all the result set data on console
     public static void displayAllData() {
 
         try {
@@ -268,9 +254,8 @@ public class DB_Utility {
     }
 
 
-    /**
-     * A method that return the row data along with column name as Map object
-     * @param rowNum row numebr you want to get the data
+    // A method that return the row data along with column name as Map object
+     /* @param rowNum row numebr you want to get the data
      * @return Map object -- column name as key and cell value as value
      */
     public static Map<String, String> getRowMap(int rowNum) {
